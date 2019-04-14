@@ -34,7 +34,7 @@ router.get('/snapshot', (req, res) => {
   client.emit('snapshot', true);
   return client.on('snap', imageSrc => {
     client.disconnect();
-    return res.send(imageSrc);
+    return res.send({ imageSrc });
   });
 });
 

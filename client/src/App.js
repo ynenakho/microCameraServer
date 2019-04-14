@@ -7,7 +7,7 @@ class App extends Component {
     super();
 
     this.state = {
-      endpoint: 'micro-camera-server.herokuapp.com'
+      endpoint: 'localhost:4001'
     };
   }
 
@@ -29,6 +29,7 @@ class App extends Component {
     console.log('CHEEEEEESEEEE');
     console.log('socket = ', this.socket);
     const imageSrc = this.webcam.getScreenshot();
+    console.log(imageSrc);
     this.socket.emit('snap', imageSrc);
     console.log('socket emited!');
   };
