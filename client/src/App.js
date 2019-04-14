@@ -7,7 +7,7 @@ class App extends Component {
     super();
 
     this.state = {
-      endpoint: 'localhost:4001'
+      endpoint: 'https://micro-camera-server.herokuapp.com'
     };
   }
 
