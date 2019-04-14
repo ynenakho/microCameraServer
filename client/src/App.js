@@ -11,10 +11,13 @@ class App extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.socket = socketIOClient(this.state.endpoint);
     this.socket.on('snapshot', () => {
       this.capture();
+    });
+    this.socket.on('disconnect', () => {
+      window.location.reload();
     });
   }
 

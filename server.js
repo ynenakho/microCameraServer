@@ -32,7 +32,8 @@ io.on('connection', socket => {
 router.get('/snapshot', (req, res) => {
   console.log('say cheeesee');
   client.emit('snapshot', true);
-  client.on('snap', imageSrc => {
+  return client.on('snap', imageSrc => {
+    client.disconnect();
     return res.send(imageSrc);
   });
 });
