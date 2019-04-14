@@ -3,6 +3,7 @@ const http = require('http');
 const socketIO = require('socket.io');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 // our localhost port
 const port = process.env.PORT || 4001;
 
