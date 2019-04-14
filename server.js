@@ -4,6 +4,7 @@ const socketIO = require('socket.io');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 // our localhost port
+const port = process.env.PORT || 4001;
 
 const app = express();
 const router = express.Router();
@@ -46,7 +47,5 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
-
-const port = process.env.PORT || 4001;
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
