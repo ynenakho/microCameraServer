@@ -1,9 +1,9 @@
 const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 // our localhost port
 const port = process.env.PORT || 4001;
 
@@ -29,11 +29,31 @@ io.on('connection', socket => {
   });
 });
 
+
+function saveImageToServer(imageSrc) {
+	console.log(" imageSrc = ", imageSrc);
+	const base64Data = imageSrc.replace(/^data:image\/jpeg;base64,/, "");
+	console.log("base64Data = ", base64Data);
+	const filePath = `uploads/snapshot.jpeg`
+	fs.writeFile(filePath, base64Data, 'base64', function(err) {
+		if(err){
+		   console.log(err);
+		 }
+	});
+	console.log('saved! ');
+}
+
+
 router.get('/snapshot', (req, res) => {
   console.log('say cheeesee');
   client.emit('snapshot', true);
   return client.on('snap', imageSrc => {
-    client.disconnect();
+	client.disconnect();
+	saveImageToServer(imageSrc);
+
+
+
+
     return res.json({ imageSrc });
   });
 });
@@ -44,6 +64,7 @@ app.use('/', router);
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
   app.use(express.static('client/build'));
+  app.use("/uploads", express.static('uploads/'));
 
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));

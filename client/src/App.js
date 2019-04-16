@@ -7,7 +7,7 @@ class App extends Component {
     super();
 
     this.state = {
-      endpoint: 'https://micro-camera-server.herokuapp.com'
+      endpoint: 'micro-camera-server.herokuapp.com'
     };
   }
 
